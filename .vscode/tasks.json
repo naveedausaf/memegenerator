@@ -1,0 +1,76 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+
+      {
+        "label": "Storybook",
+        "type": "shell", //"process" does not work as value
+        "command": "npm run test-storybook:watch",
+        "args": [],
+        "isBackground": true, //this makes it keep running in the background without interrupting what you're doing
+        "runOptions": {
+          "runOn": "folderOpen" //start this task when folder is opened in VS Code
+        },
+        "presentation": {
+          "panel": "dedicated"
+        },
+        "problemMatcher": {
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "severity": "error", //probabaly redundant as it is the default
+          "pattern": {
+            "kind": "file",
+            "regexp": "^\\[TEST\\]\\s*FAIL\\s*(browser:\\s*\\S*)\\s*(.*)\\s\\(.*\\)\\s*$",
+            "message": 1,
+            "file": 2
+          },
+          "background": {
+            "activeOnStart": false,
+            //I have verified that if either of the following regexes is wrong,
+            //you don't get the tick on the terminal to indicate once
+            //a test run has completed (even though our watch task carries on running)
+            "beginsPattern": "^\\[TEST\\]\\s*Starting Storybook tests\\.\\.\\.\\s*$",
+            //"beginsPattern": "^\\s*Running \\d* tests using \\d* workers\\s*$",
+            //USE THE FOLLOWING endsPattern IF REVERTING TO CHOKIDAR TO WATCH
+            "endsPattern": "^\\[TEST\\]\\s*Completed Storybook tests\\.\\.\\.\\s*$"
+            //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
+          }
+        }
+      },
+      {
+        "label": "Storybook A11Y",
+        "type": "shell", //"process" does not work as value
+        "command": "npm run test-storybook-a11y:watch",
+        "args": [],
+        "isBackground": true, //this makes it keep running in the background without interrupting what you're doing
+        "runOptions": {
+          "runOn": "folderOpen" //start this task when folder is opened in VS Code
+        },
+        "presentation": {
+          "panel": "dedicated"
+        },
+        "problemMatcher": {
+          "fileLocation": ["relative", "${workspaceFolder}"],
+          "severity": "error", //probabaly redundant as it is the default
+          "pattern": {
+            "kind": "file",
+            "regexp": "^\\s*Detected the following (accessibility violations).\\s*$",
+            "message": 1,
+            "file": 1
+          },
+          "background": {
+            "activeOnStart": false,
+            //I have verified that if either of the following regexes is wrong,
+            //you don't get the tick on the terminal to indicate once
+            //a test run has completed (even though our watch task carries on running)
+            "beginsPattern": "^\\s*Starting Storybook A11Y tests\\.\\.\\.\\s*$",
+            //"beginsPattern": "^\\s*Running \\d* tests using \\d* workers\\s*$",
+            //USE THE FOLLOWING endsPattern IF REVERTING TO CHOKIDAR TO WATCH
+            "endsPattern": "^\\s*Completed Storybook A11Y tests\\.\\.\\.\\s*$"
+            //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
+          }
+        }
+      }
+    ]
+  }

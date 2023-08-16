@@ -8,7 +8,17 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook",
+    "chromatic": "# do nothing as we don't want Chromatic project token in here",
+    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"http-server storybook-static -s --port 6006\" \"wait-on http://127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006 --coverage --junit\"",
+    "test-storybook:retest": "wait 3000 && echo Starting Storybook tests... && (test-storybook --url http://127.0.0.1:6020 --coverage || true) && echo Completed Storybook tests...",
+    "test-storybook:watch": "concurrently --names \"HTTP,TEST\" --hide HTTP --prefix-colors \"blue,magenta\" \"storybook dev --no-open -p 6020\" \"wait-on http://127.0.0.1:6020 && wait 30000 && onchange -i -k src/**/* -- npm run test-storybook:retest\"",
+    "test-storybook-a11y:ci": "axe-storybook --reporter xunit --reporter-options output=testrunreports/a11ytests.xml",
+    "test-storybook-a11y:retest": "wait 3000 && echo Starting Storybook A11Y tests... && ((axe-storybook --storybook-url http://127.0.0.1:6020) || true) && echo Completed Storybook A11Y tests...",
+    "test-storybook-a11y:watch": "wait-on http://127.0.0.1:6020 && wait 30000 && onchange -i -k src/**/* -- npm run test-storybook-a11y:retest"
   },
   "dependencies": {
     "@types/node": "20.5.0",
@@ -22,10 +32,31 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@chanzuckerberg/axe-storybook-testing": "7.1.2",
     "@commitlint/cli": "17.7.1",
     "@commitlint/config-conventional": "17.7.0",
     "@semantic-release/changelog": "6.0.3",
+    "@storybook/addon-a11y": "7.3.0",
+    "@storybook/addon-coverage": "0.0.9",
+    "@storybook/addon-essentials": "7.3.0",
+    "@storybook/addon-interactions": "7.3.0",
+    "@storybook/addon-links": "7.3.0",
+    "@storybook/addon-onboarding": "1.0.8",
+    "@storybook/addon-storysource": "7.3.0",
+    "@storybook/blocks": "7.3.0",
+    "@storybook/jest": "0.1.0",
+    "@storybook/nextjs": "7.3.0",
+    "@storybook/react": "7.3.0",
+    "@storybook/test-runner": "0.13.0",
+    "@storybook/testing-library": "0.2.0",
+    "chromatic": "6.22.0",
+    "concurrently": "8.2.0",
+    "eslint-plugin-storybook": "0.6.13",
     "husky": "8.0.3",
-    "semantic-release": "21.0.7"
+    "onchange": "7.1.0",
+    "semantic-release": "21.0.7",
+    "storybook": "7.3.0",
+    "wait": "0.4.2",
+    "wait-on": "7.0.1"
   }
 }
