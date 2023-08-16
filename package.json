@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install",
+    "release": "semantic-release"
   },
   "dependencies": {
     "@types/node": "20.5.0",
@@ -18,5 +20,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.7.1",
+    "@commitlint/config-conventional": "17.7.0",
+    "@semantic-release/changelog": "6.0.3",
+    "husky": "8.0.3",
+    "semantic-release": "21.0.7"
   }
 }
