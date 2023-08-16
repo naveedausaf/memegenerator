@@ -75,7 +75,7 @@ export default function Home() {
               Learn <span>-&gt;</span>
             </h2>
             <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
+              This is a SECOND FEATURE BRANCH with&nbsp;quizzes!
             </p>
           </a>
 
