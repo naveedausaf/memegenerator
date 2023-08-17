@@ -75,7 +75,7 @@ export default function Home() {
               Learn <span>-&gt;</span>
             </h2>
             <p>
-              This is a SECOND FEATURE BRANCH with&nbsp;quizzes!
+              AND ANOTHER CHANGE:  SECOND FEATURE BRANCH with&nbsp;quizzes!
             </p>
           </a>
 
