@@ -3,16 +3,17 @@ concurrency: ci-${{ github.ref }}
 permissions:
   checks: write
   pull-requests: write
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
   pull_request:
     branches:
       - main
 
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 jobs:
-  Deploy-Preview:
+  deploy-pr-preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
