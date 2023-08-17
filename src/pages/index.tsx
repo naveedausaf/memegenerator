@@ -61,7 +61,7 @@ export default function Home() {
               Docs <span>-&gt;</span>
             </h2>
             <p>
-              Find in-depth information about Next.js features and&nbsp;API.
+              Find NO information about Next.js features and&nbsp;API.
             </p>
           </a>
 
@@ -75,7 +75,7 @@ export default function Home() {
               Learn <span>-&gt;</span>
             </h2>
             <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
+              AND ANOTHER CHANGE:  SECOND FEATURE BRANCH with&nbsp;quizzes!
             </p>
           </a>
 
