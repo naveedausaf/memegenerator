@@ -32,14 +32,14 @@ jobs:
         run: |
           npm run test-storybook:ci
 
-          - name: Publish storybook test report
-          uses: dorny/test-reporter@v1
-          # run this step even if previous step failed:
-          if: success() || failure()
-          with:
-            name: Story test report # Name of the check run which will be created
-            path: testrunreports/*-junit.xml # Path to test results
-            reporter: jest-junit # Format of test results
+      - name: Publish storybook test report
+        uses: dorny/test-reporter@v1
+        # run this step even if previous step failed:
+        if: success() || failure()
+        with:
+          name: Story test report # Name of the check run which will be created
+          path: testrunreports/*-junit.xml # Path to test results
+          reporter: jest-junit # Format of test results
 
       - name: Upload raw coverage as artifact
         uses: actions/upload-artifact@v3.1.2
