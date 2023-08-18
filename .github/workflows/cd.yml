@@ -12,15 +12,97 @@ env:
 jobs:
   test-storybook:
     runs-on: ubuntu-22.04
-    name: Storybook tests
+    name: Test Storybook
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3.5.3
 
-      - name: Run Storybook Tests
+      - name: Build storybook
+        run: |
+          npm install
+          npm run build-storybook
+
+      - name: Run test-runner for component smoke and interaction tests with coverage
+        env:
+          JEST_JUNIT_OUTPUT_FILE: testrunreports/storybooktests-junit.xml
+
+        run: |
+          npm run test-storybook:ci
+
+      - name: Publish storybook test report
+        uses: dorny/test-reporter@v1
+        # run this step even if previous step failed:
+        if: success() || failure()
         with:
-          codecov_token: ${{ secrets.CODECOV_TOKEN }}
-        uses: ./.github//templates/storybook
+          name: Story test report # Name of the check run which will be created
+          path: testrunreports/*-junit.xml # Path to test results
+          reporter: jest-junit # Format of test results
+
+      - name: Upload raw coverage as artifact
+        if: success() || failure()
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: test-runner coverage file
+          path: coverage/storybook/coverage-storybook.json
+
+      - name: Run accessibility tests
+        if: success() || failure()
+        # these do not generate coverage
+        run: |
+          npm run test-storybook-a11y:ci
+
+      - name:
+          Massage a11y test run report
+          # Need to add a testssuites element that wraps the
+          # only (and outermost) testsuite element in the
+          # test run report output by aze-storybook-testing
+          # a11y tester for storybook that we're using.
+        if: success() || failure()
+        run: |
+          t=$(grep -oP  -m 1 "(?<=time=\")(.*)(?=\")" testrunreports/a11ytests.xml)
+          echo "<testsuites time=\"${t}\">" >> testrunreports/a11ytests-fixed.xml
+          cat testrunreports/a11ytests.xml >> testrunreports/a11ytests-fixed.xml
+          echo '</testsuites>' >> testrunreports/a11ytests-fixed.xml
+
+      - name: Publish Storybook a11y test report
+        uses: dorny/test-reporter@v1
+        # run this step even if previous step failed:
+        if: success() || failure()
+        with:
+          name: Storybook a11y test report # Name of the check run which will be created
+          path: testrunreports/a11ytests-fixed.xml # Path to test results
+          reporter: jest-junit # Format of test results
+
+      - name: Generate combined lcov coverage report
+        # TODO: exclude files with extension *.stories.tsx
+        # and *.stories.js and *.stories.jsx from
+        # coverage report using --exclude parameter
+        # of nyc report. by default anything in ./tests
+        # will be excluded by nyc report
+        run: |
+          npx nyc report -t coverage/storybook --reporter cobertura
+
+      - name: Upload cobertura coverage file
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: combined cobertura coverage file
+          path: coverage/cobertura-coverage.xml
+
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file: coverage/cobertura-coverage.xml
+          format: cobertura
+
+      - name: Upload coverage report to CodeCov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/cobertura-coverage.xml
+          name: Storybook smoke and component interaction tests # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional   (default = false)
 
   build-and-deploy-to-prod:
     # UNCOMMENT THE FOLLOWING LINE WHEN
