@@ -1,3 +1,16 @@
+# TWO ISSUES WITH FACTORING OUT THIS JOB INTO
+# A COMPOSITE ACTION that MAKE THIS EXERCISE
+# MORE COMPLICATED THAT IT IDEALLY SHOULD
+# HAVE BEEN:
+#
+# 1. The calling job must checkout the repo first
+# Otherwise GitHub Actions will not be able to
+# find the composite actions file
+#
+# 2. Every shell job (i.e. "run" step) must have
+# shell specified. I have never had to do this in
+# workflows and I believe the efault is bash.
+#
 name: run storybook tests
 
 runs:
@@ -5,8 +18,8 @@ runs:
 
   # Defining the action steps
   steps:
-
     - name: Build storybook
+      shell: bash
       run: |
         npm install
         npm run build-storybook
@@ -14,7 +27,7 @@ runs:
     - name: Run test-runner for component smoke and interaction tests with coverage
       env:
         JEST_JUNIT_OUTPUT_FILE: testrunreports/storybooktests-junit.xml
-
+      shell: bash
       run: |
         npm run test-storybook:ci
 
@@ -28,12 +41,14 @@ runs:
         reporter: jest-junit # Format of test results
 
     - name: Run accessibility tests
+      shell: bash
       # these do not generate coverage
       run: |
         npm run test-storybook-a11y:ci
 
-    - name:
-        Massage a11y test run report
+    - name: Massage a11y test run report
+      shell:
+        bash
         # Need to add a testssuites element that wraps the
         # only (and outermost) testsuite element in the
         # test run report output by aze-storybook-testing
@@ -54,6 +69,7 @@ runs:
         reporter: jest-junit # Format of test results
 
     - name: Generate combined lcov coverage
+      shell: bash
       # TODO: exclude files with extension *.stories.tsx
       # and *.stories.js and *.stories.jsx from
       # coverage report using --exclude parameter
