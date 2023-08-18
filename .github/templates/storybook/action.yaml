@@ -11,7 +11,15 @@
 # shell specified. I have never had to do this in
 # workflows and I believe the efault is bash.
 #
+# 3. Secrets such as codecov token need to be
+# passed in as paramters as "secrets" context is
+# not available in a composite action
+#
 name: run storybook tests
+
+inpute:
+  codecov_token:
+    required: true
 
 runs:
   using: "composite"
@@ -87,7 +95,7 @@ runs:
     - name: Upload coverage report to CodeCov
       uses: codecov/codecov-action@v3
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+        token: codecov_token
         files: coverage/cobertura-coverage.xml
         name: Storybook smoke and component interaction tests # optional
         fail_ci_if_error: true # optional (default = false)
