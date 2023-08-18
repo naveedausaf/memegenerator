@@ -45,7 +45,7 @@ runs:
       if: success() || failure()
       with:
         name: Story test report # Name of the check run which will be created
-        path: testrunreports/*-junit.xml # Path to test results
+        path: ./testrunreports/*-junit.xml # Path to test results
         reporter: jest-junit # Format of test results
 
     - name: Run accessibility tests
