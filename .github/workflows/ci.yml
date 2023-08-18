@@ -18,7 +18,7 @@ jobs:
     name: Storybook tests
     steps:
       - name: Run Storybook Tests
-        uses: "./.github/templates/storybook"
+        uses: "../templates/storybook"
 
   build-and-deploy-to-preview:
     runs-on: ubuntu-latest
