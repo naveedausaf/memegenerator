@@ -41,12 +41,6 @@ jobs:
           path: testrunreports/*-junit.xml # Path to test results
           reporter: jest-junit # Format of test results
 
-      - name: Upload raw coverage as artifact
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: test-runner coverage file
-          path: coverage/storybook/coverage-storybook.json
-
       - name: Run accessibility tests
         # these do not generate coverage
         run: |
@@ -72,6 +66,30 @@ jobs:
           name: Storybook a11y test report # Name of the check run which will be created
           path: testrunreports/a11ytests-fixed.xml # Path to test results
           reporter: jest-junit # Format of test results
+
+      - name: Generate combined lcov coverage
+        # TODO: exclude files with extension *.stories.tsx
+        # and *.stories.js and *.stories.jsx from
+        # coverage report using --exclude parameter
+        # of nyc report. by default anything in ./tests
+        # will be excluded by nyc report
+        run: |
+          npx nyc report -t coverage/storybook --reporter cobertura
+
+      - name: Upload cobertura coverage file
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: combined cobertura coverage file
+          path: coverage/cobertura-coverage.xml
+
+      - name: Upload coverage report to CodeCov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/cobertura-coverage.xml
+          name: Storybook smoke and component interaction tests # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional   (default = false)
 
   build-and-deploy-to-preview:
     runs-on: ubuntu-latest
