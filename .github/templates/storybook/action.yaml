@@ -73,7 +73,7 @@ runs:
       if: success() || failure()
       with:
         name: Storybook a11y test report # Name of the check run which will be created
-        path: testrunreports/a11ytests-fixed.xml # Path to test results
+        path: ./testrunreports/a11ytests-fixed.xml # Path to test results
         reporter: jest-junit # Format of test results
 
     - name: Generate combined lcov coverage
@@ -96,7 +96,7 @@ runs:
       uses: codecov/codecov-action@v3
       with:
         token: codecov_token
-        files: coverage/cobertura-coverage.xml
+        files: ./coverage/cobertura-coverage.xml
         name: Storybook smoke and component interaction tests # optional
         fail_ci_if_error: true # optional (default = false)
         verbose: true # optional   (default = false)
