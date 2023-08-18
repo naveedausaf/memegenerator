@@ -34,7 +34,7 @@ runs:
 
     - name: Run test-runner for component smoke and interaction tests with coverage
       env:
-        JEST_JUNIT_OUTPUT_FILE: testrunreports/storybooktests-junit.xml
+        JEST_JUNIT_OUTPUT_FILE: ./testrunreports/storybooktests-junit.xml
       shell: bash
       run: |
         npm run test-storybook:ci
