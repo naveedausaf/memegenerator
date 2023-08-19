@@ -5,7 +5,11 @@
 #
 # 1. The calling job must checkout the repo first
 # Otherwise GitHub Actions will not be able to
-# find the composite actions file
+# find the composite actions file.
+# This is a bit odd because if GitHub Actions
+# has access to the workflow file, then surely it
+# can also access the composite actions files that
+# it invokes.
 #
 # 2. Every shell job (i.e. "run" step) must have
 # shell specified. I have never had to do this in
