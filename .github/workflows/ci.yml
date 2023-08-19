@@ -16,6 +16,12 @@ jobs:
   test-storybook:
     uses: "./.github/workflows/storybook.yml"
 
+  # Playwright tests job
+  test-playwright:
+    uses: "./.github/workflows/playwright.yml"
+    with:
+      show-pr-comment: true
+
   build-and-deploy-to-preview:
     runs-on: ubuntu-latest
     steps:

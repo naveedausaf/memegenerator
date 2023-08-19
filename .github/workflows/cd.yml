@@ -13,6 +13,10 @@ jobs:
   test-storybook:
     uses: "./.github/workflows/storybook.yml"
 
+  # Playwright tests job
+  test-playwright:
+    uses: "./.github/workflows/playwright.yml"
+
   build-and-deploy-to-prod:
     # UNCOMMENT THE FOLLOWING LINE WHEN
     # you have defined jobs named
@@ -33,6 +37,7 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-22.04
+    needs: [test-storybook, test-playwright]
     name: Deploy to Production
     steps:
       - uses: actions/checkout@v3
