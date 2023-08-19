@@ -96,7 +96,7 @@ runs:
       uses: codecov/codecov-action@v3
       with:
         token: ${{ inputs.codecov_token }}
-        files: ./coverage/cobertura-coverage.xml
+        files: coverage/cobertura-coverage.xml
         name: Storybook smoke and component interaction tests # optional
         fail_ci_if_error: true # optional (default = false)
         verbose: true # optional   (default = false)
