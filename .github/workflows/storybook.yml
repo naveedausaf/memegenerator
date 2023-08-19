@@ -1,0 +1,112 @@
+# TWO ISSUES WITH FACTORING OUT THIS JOB INTO
+# A COMPOSITE ACTION that MAKE THIS EXERCISE
+# MORE COMPLICATED THAT IT IDEALLY SHOULD
+# HAVE BEEN:
+#
+# 1. The calling job must checkout the repo first
+# Otherwise GitHub Actions will not be able to
+# find the composite actions file.
+# This is a bit odd because if GitHub Actions
+# has access to the workflow file, then surely it
+# can also access the composite actions files that
+# it invokes.
+#
+# 2. Every shell job (i.e. "run" step) must have
+# shell specified. I have never had to do this in
+# workflows and I believe the efault is bash.
+#
+# 3. Secrets such as codecov token need to be
+# passed in as paramters as "secrets" context is
+# not available in a composite action
+#
+name: run storybook tests
+
+# inputs:
+#   codecov_token:
+#     required: true
+
+on: [workflow_call]
+
+jobs:
+  test-storybook:
+    runs-on: ubuntu-22.04
+    name: Storybook tests
+    # Defining the action steps
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3.5.3
+
+      - name: Build storybook
+        shell: bash
+        run: |
+          npm install
+          npm run build-storybook
+
+      - name: Run test-runner for component smoke and interaction tests with coverage
+        env:
+          JEST_JUNIT_OUTPUT_FILE: testrunreports/storybooktests-junit.xml
+        shell: bash
+        run: |
+          npm run test-storybook:ci
+
+      - name: Publish storybook test report
+        uses: dorny/test-reporter@v1
+        # run this step even if previous step failed:
+        if: success() || failure()
+        with:
+          name: Story test report # Name of the check run which will be created
+          path: testrunreports/*-junit.xml # Path to test results
+          reporter: jest-junit # Format of test results
+
+      - name: Run accessibility tests
+        shell: bash
+        # these do not generate coverage
+        run: |
+          npm run test-storybook-a11y:ci
+
+      - name: Massage a11y test run report
+        shell:
+          bash
+          # Need to add a testssuites element that wraps the
+          # only (and outermost) testsuite element in the
+          # test run report output by aze-storybook-testing
+          # a11y tester for storybook that we're using.
+        run: |
+          t=$(grep -oP  -m 1 "(?<=time=\")(.*)(?=\")" testrunreports/a11ytests.xml)
+          echo "<testsuites time=\"${t}\">" >> testrunreports/a11ytests-fixed.xml
+          cat testrunreports/a11ytests.xml >> testrunreports/a11ytests-fixed.xml
+          echo '</testsuites>' >> testrunreports/a11ytests-fixed.xml
+
+      - name: Publish Storybook a11y test report
+        uses: dorny/test-reporter@v1
+        # run this step even if previous step failed:
+        if: success() || failure()
+        with:
+          name: Storybook a11y test report # Name of the check run which will be created
+          path: testrunreports/a11ytests-fixed.xml # Path to test results
+          reporter: jest-junit # Format of test results
+
+      - name: Generate combined lcov coverage
+        shell: bash
+        # TODO: exclude files with extension *.stories.tsx
+        # and *.stories.js and *.stories.jsx from
+        # coverage report using --exclude parameter
+        # of nyc report. by default anything in ./tests
+        # will be excluded by nyc report
+        run: |
+          npx nyc report -t coverage/storybook --reporter cobertura
+
+      - name: Upload cobertura coverage file
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: combined cobertura coverage file
+          path: coverage/cobertura-coverage.xml
+
+      - name: Upload coverage report to CodeCov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/cobertura-coverage.xml
+          name: Storybook smoke and component interaction tests # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional   (default = false)
