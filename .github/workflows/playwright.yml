@@ -9,6 +9,7 @@ on:
 
 jobs:
   test-playwright:
+    name: Playwright tests
     timeout-minutes: 60
     runs-on: ubuntu-22.04
     steps:

@@ -18,15 +18,6 @@ jobs:
     uses: "./.github/workflows/playwright.yml"
 
   build-and-deploy-to-prod:
-    # UNCOMMENT THE FOLLOWING LINE WHEN
-    # you have defined jobs named
-    # 'build' and 'test'
-    #
-    # SEMANTIC-RELEASE SHOULD ONLY RUN
-    # AFTER TESTS HAVE RUN SUCCESSFULLY
-    #
-    #needs: [build, test]
-
     # This permissions block wasn't needed in
     # earlier versions of semantic-release
     # (I have a project currently using an
