@@ -18,7 +18,10 @@
     "test-storybook:watch": "concurrently --names \"HTTP,TEST\" --hide HTTP --prefix-colors \"blue,magenta\" \"storybook dev --no-open -p 6020\" \"wait-on http://127.0.0.1:6020 && wait 30000 && onchange -i -k src/**/* -- npm run test-storybook:retest\"",
     "test-storybook-a11y:ci": "axe-storybook --reporter xunit --reporter-options output=testrunreports/a11ytests.xml",
     "test-storybook-a11y:retest": "wait 3000 && echo Starting Storybook A11Y tests... && ((axe-storybook --storybook-url http://127.0.0.1:6020) || true) && echo Completed Storybook A11Y tests...",
-    "test-storybook-a11y:watch": "wait-on http://127.0.0.1:6020 && wait 30000 && onchange -i -k src/**/* -- npm run test-storybook-a11y:retest"
+    "test-storybook-a11y:watch": "wait-on http://127.0.0.1:6020 && wait 30000 && onchange -i -k src/**/* -- npm run test-storybook-a11y:retest",
+
+    "test-playwright:retest": "(playwright test || true) && echo Test run report available at http://localhost:6007",
+    "test-playwright:watch": "concurrently --names \"REPORT,TEST\" --hide REPORT --prefix-colors \"blue,magenta\" \"http-server playwright-report -s --port 6007\" \"onchange -i -k tests/**/*.spec.ts src/**/* -- npm run test-playwright:retest\""
   },
   "dependencies": {
     "@types/node": "20.5.0",
@@ -35,6 +38,7 @@
     "@chanzuckerberg/axe-storybook-testing": "7.1.2",
     "@commitlint/cli": "17.7.1",
     "@commitlint/config-conventional": "17.7.0",
+    "@playwright/test": "1.37.1",
     "@semantic-release/changelog": "6.0.3",
     "@storybook/addon-a11y": "7.3.0",
     "@storybook/addon-coverage": "0.0.9",

@@ -71,6 +71,41 @@
             //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
           }
         }
+      },
+      {
+        "label": "Playwright watch",
+        "type": "shell", //"process" does not work as value
+        "command": "npm run test-playwright:watch",
+        "args": [],
+        "isBackground": true, //this makes it keep running in the background without interrupting what you're doing
+        "runOptions": {
+          "runOn": "folderOpen" //start this task when folder is opened in VS Code
+        },
+        "presentation": {
+          "panel": "dedicated"
+        },
+        "problemMatcher": {
+          "fileLocation": ["relative", "${workspaceFolder}/tests"],
+          "severity": "error", //probabaly redundant as it is the default
+          "pattern": {
+            "regexp": "^\\[TEST\\]\\s*\\[(.*)\\]\\s\\S\\s(.*):(\\d+):(\\d+).*$",
+            "file": 2,
+            "line": 3,
+            "column": 4,
+            "message": 1
+          },
+          "background": {
+            "activeOnStart": false,
+            //I have verified that if either of the following regexes is wrong,
+            //you don't get the tick on the terminal to indicate once
+            //a test run has completed (even though our watch task carries on running)
+            "beginsPattern": "^\\[TEST\\]\\s*Running \\d* tests using \\d* workers\\s*$",
+            //"beginsPattern": "^\\s*Running \\d* tests using \\d* workers\\s*$",
+            //USE THE FOLLOWING endsPattern IF REVERTING TO CHOKIDAR TO WATCH
+            "endsPattern": "^\\[TEST\\]\\s*To open last HTML report run:\\s*$"
+            //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
+          }
+        }
       }
     ]
   }

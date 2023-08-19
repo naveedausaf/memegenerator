@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      // This must be specified if "paths" is.
+      // It is relative to the dir in which this
+      // tsconfig.json is.
+      "baseUrl": "../",
+
+      // These mappings are relative to "baseUrl".
+      "paths": {
+        "@/*": ["./*"]
+      }
+    }
+  }
