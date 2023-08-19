@@ -11,16 +11,7 @@ env:
 
 jobs:
   test-storybook:
-    runs-on: ubuntu-22.04
-    name: Storybook tests
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v3.5.3
-
-      - name: Run Storybook Tests
-        with:
-          codecov_token: ${{ secrets.CODECOV_TOKEN }}
-        uses: ./.github//templates/storybook
+    uses: "./.github/workflows/storybook.yml"
 
   build-and-deploy-to-prod:
     # UNCOMMENT THE FOLLOWING LINE WHEN
