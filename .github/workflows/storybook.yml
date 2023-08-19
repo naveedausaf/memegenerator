@@ -1,29 +1,4 @@
-# TWO ISSUES WITH FACTORING OUT THIS JOB INTO
-# A COMPOSITE ACTION that MAKE THIS EXERCISE
-# MORE COMPLICATED THAT IT IDEALLY SHOULD
-# HAVE BEEN:
-#
-# 1. The calling job must checkout the repo first
-# Otherwise GitHub Actions will not be able to
-# find the composite actions file.
-# This is a bit odd because if GitHub Actions
-# has access to the workflow file, then surely it
-# can also access the composite actions files that
-# it invokes.
-#
-# 2. Every shell job (i.e. "run" step) must have
-# shell specified. I have never had to do this in
-# workflows and I believe the efault is bash.
-#
-# 3. Secrets such as codecov token need to be
-# passed in as paramters as "secrets" context is
-# not available in a composite action
-#
 name: run storybook tests
-
-# inputs:
-#   codecov_token:
-#     required: true
 
 on: [workflow_call]
 
