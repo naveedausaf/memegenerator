@@ -21,8 +21,8 @@ jobs:
 
   chromatic:
     uses: "./.github/workflows/chromatic.yml"
-    # secrets:
-    #   CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    secrets:
+      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
   build-and-deploy-to-prod:
     # This permissions block wasn't needed in

@@ -15,8 +15,8 @@ env:
 jobs:
   test-storybook:
     uses: "./.github/workflows/storybook.yml"
-    # secrets:
-    #   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   # Playwright tests job
   test-playwright:
