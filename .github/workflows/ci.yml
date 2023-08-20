@@ -23,6 +23,7 @@ jobs:
       show-pr-comment: true
 
   build-and-deploy-to-preview:
+    name: Build and Deploy to preview env
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
