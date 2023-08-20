@@ -1,0 +1,27 @@
+name: Verify Linked Issue
+concurrency: ci-${{ github.ref }}-verifylinkedissue
+# permissions:
+#   checks: write
+#   pull-requests: write
+
+on:
+    pull_request:
+        types: [edited, synchronize, opened, reopened]
+        branches:
+            - main
+jobs:
+    verify-linked-issue:
+        runs-on: ubuntu-22.04
+        permissions:
+          issues: read
+          pull-requests: write
+        steps:
+          # PROS: Actually checks that the issue exists in repo
+          # CONS: This needs issue ref to be in description of PR, not title
+          #
+          - uses: nearform-actions/github-action-check-linked-issues@v1
+            id: check-linked-issues
+            with:
+              comment: false
+
+
