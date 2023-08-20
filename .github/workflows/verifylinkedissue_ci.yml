@@ -1,8 +1,5 @@
 name: Verify Linked Issue
 concurrency: ci-${{ github.ref }}-verifylinkedissue
-# permissions:
-#   checks: write
-#   pull-requests: write
 
 on:
     pull_request:

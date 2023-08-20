@@ -1,4 +1,5 @@
-name: commit-lint
+name: commitlint
+concurrency: ci-${{ github.ref }}-commitlint
 
 on:
   pull_request:
