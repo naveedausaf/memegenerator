@@ -1,0 +1,62 @@
+@import "resets.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;900&family=Karla:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+    --color-gradient-start: #672280;
+    --color-gradient-end: #A626D3;
+
+    --color-light: #FFF;
+    --color-dark: #0D0D0D;
+    --color-outline-light: #D5D4D8;
+    --color-outline-dark: #000000;
+
+    --font-header-heading-font-family: 'Karla', sans-serif;
+    --font-header-heading-font-size: 1.29675rem;
+    --font-header-heading-font-style: normal;
+    --font-header-heading-font-weight: 700;
+    --font-header-heading-line-height: 1.5rem;
+    --font-header-heading-letter-spacing: -0.12969rem;
+    --font-header-heading-text-transform: none;
+
+    --font-header-subheading-font-family: 'Inter', sans-serif;
+    --font-header-subheading-font-size: 0.75rem;
+    --font-header-subheading-font-style: normal;
+    --font-header-subheading-font-weight: 500;
+    --font-header-subheading-line-height: 0.938rem;
+    --font-header-subheading-letter-spacing: 0;
+    --font-header-subheading-text-transform: none;
+
+    --font-input-font-family: 'Karla', sans-serif;
+    --font-input-font-size: 0.75rem;
+    --font-input-font-style: normal;
+    --font-input-font-weight: 400;
+    --font-input-line-height: 0.875rem;
+    --font-input-letter-spacing: 0;
+    --font-input-text-transform: none;
+
+    --font-button-font-family: 'Karla', sans-serif;
+    --font-button-font-size: 1rem;
+    --font-button-font-style: normal;
+    --font-button-font-weight: 700;
+    --font-button-line-height: 1.188rem;
+    --font-button-letter-spacing: -0.05rem;
+    --font-button-text-transform: none;
+
+
+    --font-meme-font-family: 'Impact', 'Anton', sans-serif;
+    --font-meme-font-size: 5vmin; //2rem;
+    --font-meme-font-style: normal;
+    --font-meme-font-weight: 900;
+    --font-meme-line-height: 2.376rem;
+    --font-meme-letter-spacing: -0.1rem;
+    --font-meme-text-transform: uppercase;
+    --font-meme-text-stroke: 0.0625em black;
+    // --font-meme-text-shadow: -0.07em 0.07em 0 var(--color-dark),
+    //             0.07em 0.07em 0 var(--color-dark),
+    //             0.07em -0.07em 0 var(--color-dark),
+	// 			-0.07em -0.07em 0 var(--color-dark);
+
+
+
+}

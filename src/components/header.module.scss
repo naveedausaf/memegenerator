@@ -1,0 +1,56 @@
+
+.outercontainer {
+    background: linear-gradient(90deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+}
+
+.container {
+    padding-left: 1.25em;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.logo {
+    display: flex;
+    gap: 0.4em;
+    &__name {
+        font-family: var(--font-header-heading-font-family);
+        font-size: var(--font-header-heading-font-size);
+        font-style: var(--font-header-heading-font-style);
+        font-weight: var(--font-header-heading-font-weight);
+        line-height: var(--font-header-heading-line-height);
+        letter-spacing: var(--font-header-heading-letter-spacing);
+        text-transform: var(--font-header-heading-text=transform);
+        color: var(--color-light);
+    }
+}
+
+.title {
+    color: var(--color-light);
+    font-family: var(--font-header-subheading-font-family);
+    font-size: var(--font-header-subheading-font-size);
+    font-style: var(--font-header-subheading-font-style);
+    font-weight: var(--font-header-subheading-font-weight);
+    line-height: var(--font-header-subheading-line-height);
+    letter-spacing: var(--font-header-subheading-letter-spacing);
+    text-transform: var(--font-header-subheading-text=transform);
+}
+
+@media (min-width: 576px) {
+    .outercontainer {
+        padding-top: 1.19em;
+        padding-bottom: 1.24em;
+    }
+
+    .container {
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 2.31em;
+    }
+
+}

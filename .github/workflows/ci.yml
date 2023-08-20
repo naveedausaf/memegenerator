@@ -33,7 +33,7 @@ jobs:
 
   build-and-deploy-to-preview:
     name: Build and Deploy to preview env
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
 
