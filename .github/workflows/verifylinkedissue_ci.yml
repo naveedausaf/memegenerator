@@ -11,6 +11,7 @@ on:
             - main
 jobs:
     verify-linked-issue:
+        name: Verify Linked Issue
         runs-on: ubuntu-22.04
         permissions:
           issues: read
