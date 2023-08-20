@@ -12,10 +12,17 @@ env:
 jobs:
   test-storybook:
     uses: "./.github/workflows/storybook.yml"
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   # Playwright tests job
   test-playwright:
     uses: "./.github/workflows/playwright.yml"
+
+  chromatic:
+    uses: "./.github/workflows/chromatic.yml"
+    secrets:
+      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
   build-and-deploy-to-prod:
     # This permissions block wasn't needed in
@@ -28,7 +35,7 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-22.04
-    needs: [test-storybook, test-playwright]
+    needs: [test-storybook, test-playwright, chromatic]
     name: Deploy to Production
     steps:
       - uses: actions/checkout@v3

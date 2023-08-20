@@ -4,11 +4,17 @@
 name: "Chromatic"
 
 # Event for the workflow
-on: push
+on:
+  workflow_call:
+    secrets:
+      CHROMATIC_PROJECT_TOKEN:
+        required: true
+
 
 # List of jobs
 jobs:
   chromatic-deployment:
+    name: Chromatic deployment
     # Operating System
     runs-on: ubuntu-latest
     # Job steps

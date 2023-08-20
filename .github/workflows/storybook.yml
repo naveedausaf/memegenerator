@@ -21,7 +21,11 @@
 #
 name: run storybook tests
 
-on: [workflow_call]
+on:
+  workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: true
 
 jobs:
   test-storybook:
