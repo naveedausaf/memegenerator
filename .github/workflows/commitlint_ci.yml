@@ -5,7 +5,8 @@ on:
     types: [edited, synchronize, opened, reopened]
 
 jobs:
-  lint:
+  lint-commit-message:
+    name: Lint commit message
     runs-on: ubuntu-latest
 
     steps:
