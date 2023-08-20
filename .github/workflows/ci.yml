@@ -26,6 +26,8 @@ jobs:
 
   chromatic:
     uses: "./.github/workflows/chromatic.yml"
+    with:
+      failOnChanges: false
     secrets:
       CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 

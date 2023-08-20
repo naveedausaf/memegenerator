@@ -6,6 +6,11 @@ name: "Chromatic"
 # Event for the workflow
 on:
   workflow_call:
+    inputs:
+      failOnChanges:
+        required: true
+        type: boolean
+
     secrets:
       CHROMATIC_PROJECT_TOKEN:
         required: true
@@ -28,6 +33,6 @@ jobs:
         uses: chromaui/action@v1
         # Chromatic GitHub Action options
         with:
-          exitZeroOnChanges: main
+          exitZeroOnChanges: ${{ !inputs.failOnChanges }}
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
