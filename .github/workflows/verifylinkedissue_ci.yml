@@ -1,8 +1,5 @@
 name: Verify Linked Issue
 concurrency: ci-${{ github.ref }}-verifylinkedissue
-# permissions:
-#   checks: write
-#   pull-requests: write
 
 on:
     pull_request:
@@ -11,6 +8,7 @@ on:
             - main
 jobs:
     verify-linked-issue:
+        name: Verify Linked Issue
         runs-on: ubuntu-22.04
         permissions:
           issues: read

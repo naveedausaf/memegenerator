@@ -21,10 +21,6 @@
 #
 name: run storybook tests
 
-# inputs:
-#   codecov_token:
-#     required: true
-
 on: [workflow_call]
 
 jobs:
