@@ -22,6 +22,7 @@ const Meme = ({ firstPhrase, secondPhrase }: MemeProps) => {
     }
     const [memeIndex, setMemeIndex] = useState(getRandomMemeIndex());
 
+
     const memeTextContainer = useRef<HTMLDivElement>(null);
     const memeImageContainer = useRef<HTMLImageElement>(null);
 
@@ -31,6 +32,10 @@ const Meme = ({ firstPhrase, secondPhrase }: MemeProps) => {
 
     const memeObject = memes.data.memes[memeIndex];
 
+    //NOTE: Disconnected the following event handler
+    //as I found a better way to overlay text container
+    //BUT leaving it uncommented as showcase of knowledge
+    //of writing client-side/DOM JS in React
     function handleResize(event: SyntheticEvent<HTMLElement, Event>): void {
 
         //Need to do this gimmickry because the given
@@ -66,7 +71,8 @@ const Meme = ({ firstPhrase, secondPhrase }: MemeProps) => {
                 <input type="text" className={styles.textbox} name="secondPhrase" />
             </div>
             <button className={styles.button} onClick={handleClick}>Get a new meme image 🖼</button>
-            <div className={styles.meme} onClick={handleResize}>
+            <div className={styles.meme} onLoad={handleResize}
+                onResize={handleResize}>
                 <img src={memeObject.url} alt={memeObject.name}
                     className={styles.meme__image}
                     ref={memeImageContainer}
