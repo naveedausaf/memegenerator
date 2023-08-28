@@ -2,7 +2,7 @@
 import styles from './meme.module.scss'
 import memes from '../data/memesData'
 import Image from 'next/image'
-import { useState, MouseEvent, SyntheticEvent, useRef } from 'react';
+import { useState, useEffect, MouseEvent, SyntheticEvent, useRef } from 'react';
 
 interface MemeProps {
     /**
@@ -32,10 +32,18 @@ const Meme = ({ firstPhrase, secondPhrase }: MemeProps) => {
 
     const memeObject = memes.data.memes[memeIndex];
 
-    //NOTE: Disconnected the following event handler
-    //as I found a better way to overlay text container
-    //BUT leaving it uncommented as showcase of knowledge
-    //of writing client-side/DOM JS in React
+    function resizeTextOverlay() {
+        memeTextContainer.current!.style.width = memeImageContainer.current!.clientWidth + "px";
+
+        memeTextContainer.current!.style.height = memeImageContainer.current!.clientHeight + "px";
+
+        //debugger;
+        memeTextContainer.current!.style.top = memeImageContainer.current!.getBoundingClientRect().top + "px";
+
+        memeTextContainer.current!.style.left = memeImageContainer.current!.getBoundingClientRect().left + "px";
+    }
+
+
     function handleResize(event: SyntheticEvent<HTMLElement, Event>): void {
 
         //Need to do this gimmickry because the given
@@ -47,22 +55,30 @@ const Meme = ({ firstPhrase, secondPhrase }: MemeProps) => {
         //using CSS.
         //debugger;
 
-
-
-        memeTextContainer.current!.style.width = memeImageContainer.current!.clientWidth + "px";
-
-        memeTextContainer.current!.style.height = memeImageContainer.current!.clientHeight + "px";
-
-        //debugger;
-        memeTextContainer.current!.style.top = memeImageContainer.current!.getBoundingClientRect().top + "px";
-
-        memeTextContainer.current!.style.left = memeImageContainer.current!.getBoundingClientRect().left + "px";
-
-
-        //     console.log(`new width ${textWidth}`);
+        resizeTextOverlay();
 
 
     }
+
+    useEffect(() => {
+
+        function handleResize() {
+
+            resizeTextOverlay();
+
+
+
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        //should return the cleanup function
+        //to remove the event handler.
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+
+    }, []);//empty `[]` ensures the passed func only runs on mount
 
     return (
         <main className={styles.container}>
@@ -72,7 +88,7 @@ const Meme = ({ firstPhrase, secondPhrase }: MemeProps) => {
             </div>
             <button className={styles.button} onClick={handleClick}>Get a new meme image 🖼</button>
             <div className={styles.meme} onLoad={handleResize}
-                onResize={handleResize}>
+                onClick={handleResize}>
                 <img src={memeObject.url} alt={memeObject.name}
                     className={styles.meme__image}
                     ref={memeImageContainer}
@@ -88,6 +104,7 @@ const Meme = ({ firstPhrase, secondPhrase }: MemeProps) => {
             </div>
         </main>
     );
+
 }
 
 export default Meme;
