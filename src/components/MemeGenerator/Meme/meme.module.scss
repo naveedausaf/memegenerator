@@ -1,0 +1,50 @@
+.meme {
+
+    flex-grow: 1;
+    contain: size;
+
+
+    &__image {
+
+        max-width: 100%;
+        max-height: 100%;
+
+        z-index: 0;
+        margin: 0 auto;
+    }
+
+    &__textcontainer {
+        position: absolute;
+        display: grid;
+        grid-template-columns: 1;
+        grid-gap: 50%; //this works on `top of align-content: center`
+        align-content: space-around;
+        justify-content: center;
+
+
+
+        span {
+            color: var(--color-light);
+            text-align: center; //this is needed to align
+                //text within the span as two spans,
+                //although centered due to
+                //justify-content: center, will be
+                //of equal sizes.
+            padding-right: 1em;
+            padding-left: 1em;
+
+
+            font-family: var(--font-meme-font-family);
+            font-size: var(--font-meme-font-size);
+            font-style: var(--font-meme-font-style);
+            font-weight: var(--font-meme-font-weight);
+            line-height: var(--font-meme-line-height);
+            letter-spacing: var(--font-meme-letter-spacing);
+            text-transform: var(--font-meme-text-transform);
+            -webkit-text-stroke: var(--font-meme-text-stroke);
+
+
+        }
+
+    }
+}

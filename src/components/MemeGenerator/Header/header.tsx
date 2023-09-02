@@ -1,6 +1,6 @@
 import styles from './header.module.scss'
 import Image from 'next/image'
-import logo from '../../public/images/Troll Face.svg'
+import logo from '../../../../public/images/Troll Face.svg'
 
 const Header = () => {
     return (

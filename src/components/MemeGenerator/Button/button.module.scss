@@ -1,0 +1,16 @@
+.button {
+    background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
+    border-radius: 0.3125rem;
+    border: none;
+    height: 2.5rem;
+
+    color: var(--color-light);
+    text-align: center;
+    font-family: var(--font-button-font-family);
+    font-size: var(--font-button-font-size);
+    font-style: var(--font-button-font-style);
+    font-weight: var(--font-button-font-weight);
+    line-height: var(--font-button-line-height);
+    letter-spacing: var(--font-button-letter-spacing);
+    text-transform: var(--font-button-text-transform);
+}
