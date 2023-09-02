@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/index.tsx.initial"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/index.tsx.initial", "src/components/memegenerator.tsx.old", "src/components/memegenerator.stories.tsx.old", "src/components/button.tsx.old", "src/components/button.stories.tsx.old"],
   "exclude": ["node_modules"]
 }

@@ -1,3 +1,12 @@
+interface MemeObject {
+  id: string;
+  name: string;
+  url: string;
+  width: number;
+  height: number;
+  box_count: number;
+}
+
 const memes = {
   success: true,
   data: {
@@ -802,8 +811,10 @@ const memes = {
         height: 303,
         box_count: 2,
       },
-    ],
+    ] as MemeObject[],
   },
 };
 
 export default memes;
+
+export type { MemeObject };

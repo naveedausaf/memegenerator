@@ -21,12 +21,12 @@
           "severity": "error", //probabaly redundant as it is the default
           "pattern": {
             "kind": "file",
-            "regexp": "^\\[TEST\\]\\s*FAIL\\s*(browser:\\s*\\S*)\\s*(.*)\\s\\(.*\\)\\s*$",
+            "regexp": "^\\[TEST\\]\\s*FAIL\\s*(browser:\\s*\\S*)\\s*(.*)(\\s\\(.*\\)\\s*)?$",
             "message": 1,
             "file": 2
           },
           "background": {
-            "activeOnStart": false,
+            "activeOnStart": true,
             //I have verified that if either of the following regexes is wrong,
             //you don't get the tick on the terminal to indicate once
             //a test run has completed (even though our watch task carries on running)
@@ -48,29 +48,87 @@
           "runOn": "folderOpen" //start this task when folder is opened in VS Code
         },
         "presentation": {
-          "panel": "dedicated"
+          "panel": "dedicated",
+
         },
-        "problemMatcher": {
-          "fileLocation": ["relative", "${workspaceFolder}"],
-          "severity": "error", //probabaly redundant as it is the default
-          "pattern": {
-            "kind": "file",
-            "regexp": "^\\s*Detected the following (accessibility violations).\\s*$",
-            "message": 1,
-            "file": 1
+        "problemMatcher": [
+          {
+
+            "fileLocation": ["relative", "${workspaceFolder}"],
+            "severity": "error", //probabaly redundant as it is the default
+            "pattern": [
+
+              {
+                "kind": "file",
+                "regexp": "^\\s*(name):\\s*'(Error)'\\s*$",
+                "message": 2,
+                "file": 1
+              }
+
+            ],
+            "background": {
+              "activeOnStart": true,
+              //I have verified that if either of the following regexes is wrong,
+              //you don't get the tick on the terminal to indicate once
+              //a test run has completed (even though our watch task carries on running)
+              "beginsPattern": "^\\s*Starting Storybook A11Y tests\\.\\.\\.\\s*$",
+              //"beginsPattern": "^\\s*Running \\d* tests using \\d* workers\\s*$",
+              //USE THE FOLLOWING endsPattern IF REVERTING TO CHOKIDAR TO WATCH
+              "endsPattern": "^\\s*Completed Storybook A11Y tests\\.\\.\\.\\s*$"
+              //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
+            }
           },
-          "background": {
-            "activeOnStart": false,
-            //I have verified that if either of the following regexes is wrong,
-            //you don't get the tick on the terminal to indicate once
-            //a test run has completed (even though our watch task carries on running)
-            "beginsPattern": "^\\s*Starting Storybook A11Y tests\\.\\.\\.\\s*$",
-            //"beginsPattern": "^\\s*Running \\d* tests using \\d* workers\\s*$",
-            //USE THE FOLLOWING endsPattern IF REVERTING TO CHOKIDAR TO WATCH
-            "endsPattern": "^\\s*Completed Storybook A11Y tests\\.\\.\\.\\s*$"
-            //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
+          {
+
+            "fileLocation": ["relative", "${workspaceFolder}"],
+            "severity": "error", //probabaly redundant as it is the default
+            "pattern": {
+              "kind": "file",
+              "regexp": "^\\s*Detected the following (accessibility)\\s(violations).\\s*$",
+              "message": 2,
+              "file": 1
+            },
+            "background": {
+              //even though the very first run
+              //of tests commans prints
+              //starting message, yet
+              //on startup a lot of console
+              //is lost. So setting the
+              //following to true.
+              "activeOnStart": true,
+              //I have verified that if either of the following regexes is wrong,
+              //you don't get the tick on the terminal to indicate once
+              //a test run has completed (even though our watch task carries on running)
+              "beginsPattern": "^\\s*Starting Storybook A11Y tests\\.\\.\\.\\s*$",
+              //"beginsPattern": "^\\s*Running \\d* tests using \\d* workers\\s*$",
+              //USE THE FOLLOWING endsPattern IF REVERTING TO CHOKIDAR TO WATCH
+              "endsPattern": "^\\s*Completed Storybook A11Y tests\\.\\.\\.\\s*$"
+              //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
+            }
+          },
+          {
+
+            "fileLocation": ["relative", "${workspaceFolder}"],
+            "severity": "error", //probabaly redundant as it is the default
+            "pattern": {
+                "kind": "file",
+                "regexp": "^\\s*(Error)(.*)$",
+                "message": 2,
+                "file": 1
+              },
+            "background": {
+              "activeOnStart": true,
+              //I have verified that if either of the following regexes is wrong,
+              //you don't get the tick on the terminal to indicate once
+              //a test run has completed (even though our watch task carries on running)
+              "beginsPattern": "^\\s*Starting Storybook A11Y tests\\.\\.\\.\\s*$",
+              //"beginsPattern": "^\\s*Running \\d* tests using \\d* workers\\s*$",
+              //USE THE FOLLOWING endsPattern IF REVERTING TO CHOKIDAR TO WATCH
+              "endsPattern": "^\\s*Completed Storybook A11Y tests\\.\\.\\.\\s*$"
+              //"endsPattern": "^Waiting for file changes\\. Press enter to run tests, q to quit or h for more options\\.\\s*"
+            }
           }
-        }
+        ]
       },
       {
         "label": "Playwright watch",
@@ -95,7 +153,7 @@
             "message": 1
           },
           "background": {
-            "activeOnStart": false,
+            "activeOnStart": true,
             //I have verified that if either of the following regexes is wrong,
             //you don't get the tick on the terminal to indicate once
             //a test run has completed (even though our watch task carries on running)
