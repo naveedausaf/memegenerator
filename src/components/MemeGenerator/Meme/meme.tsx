@@ -40,6 +40,15 @@ const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: Mem
     const memeImageContainer = useRef<HTMLImageElement>(null);
 
     function resizeTextOverlay() {
+        //HIDE text container
+        //We will unhide at the end of
+        //resize and reposition to fix the layout shift
+        //of text container.
+        //The layout shift was particularly
+        //noticeable on first load to fix which I also gave
+        //"display: none" to the text container in CSS
+        memeTextContainer.current!.style.display = "none";
+
         memeTextContainer.current!.style.width = memeImageContainer.current!.clientWidth + "px";
 
         memeTextContainer.current!.style.height = memeImageContainer.current!.clientHeight + "px";
@@ -48,6 +57,9 @@ const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: Mem
         memeTextContainer.current!.style.top = memeImageContainer.current!.getBoundingClientRect().top + "px";
 
         memeTextContainer.current!.style.left = memeImageContainer.current!.getBoundingClientRect().left + "px";
+
+        //UNHIDE text container
+        memeTextContainer.current!.style.display = "grid";
     }
 
     function handleMemeLoad(event: SyntheticEvent<HTMLElement, Event>): void {

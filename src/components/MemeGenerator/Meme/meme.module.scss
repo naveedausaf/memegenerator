@@ -15,7 +15,7 @@
 
     &__textcontainer {
         position: absolute;
-        display: grid;
+        display: none;//should be "grid" when visible
         grid-template-columns: 1;
         grid-gap: 50%; //this works on `top of align-content: center`
         align-content: space-around;
