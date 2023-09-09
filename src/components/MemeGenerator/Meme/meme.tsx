@@ -27,12 +27,7 @@ interface MemeProps {
 }
 
 /**
- * ### TODO
- *
- * * Eliminate layout shift at render
- *     check if we get this in the top-level component also (I don't think we do)
- * * Text is offset a bit towards the left
- *
+ * Meme panel which shows the specified image with  specified two text phrases superimposed on it.
  *
  */
 const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: MemeProps) => {
