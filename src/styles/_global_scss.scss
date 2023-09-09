@@ -1,0 +1,7 @@
+//CSS vars cannot be used in media queries,
+//so defining breakpoints as SCSS vars
+$bp-s: 400px;
+$bp-m: 600px;
+$bp-l: 900px;
+$content-maxwidth: 1000px;
+//an viewport beyond content max-width could be at 1280px

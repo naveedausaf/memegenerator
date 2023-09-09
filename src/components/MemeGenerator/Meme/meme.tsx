@@ -26,6 +26,15 @@ interface MemeProps {
     memeImageAltText?: string
 }
 
+/**
+ * ### TODO
+ *
+ * * Eliminate layout shift at render
+ *     check if we get this in the top-level component also (I don't think we do)
+ * * Text is offset a bit towards the left
+ *
+ *
+ */
 const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: MemeProps) => {
     const memeTextContainer = useRef<HTMLDivElement>(null);
     const memeImageContainer = useRef<HTMLImageElement>(null);

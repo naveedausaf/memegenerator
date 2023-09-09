@@ -10,10 +10,19 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
+
+/**Shows button for fetching a new meme image*/
 export const Primary: Story = {
     args: {}
 }
 
+/**
+ * This shows the button within a flex container
+ * with `flex-direction="column"` which is how
+ * it would be shown within the top level component.
+ *
+ * It automatically appears fully expanded left to right
+ */
 export const InVerticalFlexContainer: Story = {
     args: {
 

@@ -1,3 +1,5 @@
+@import '../../styles/global_scss';
+
 
 .outercontainer {
     background: linear-gradient(90deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
@@ -7,7 +9,7 @@
 
 .container {
     padding-left: 1.25em;
-    max-width: 1200px;
+    max-width: $content-maxwidth;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -40,7 +42,7 @@
     text-transform: var(--font-header-subheading-text=transform);
 }
 
-@media (min-width: 576px) {
+@media (min-width: $bp-m) {
     .outercontainer {
         padding-top: 1.19em;
         padding-bottom: 1.24em;

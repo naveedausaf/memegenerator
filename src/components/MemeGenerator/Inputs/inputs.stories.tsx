@@ -16,6 +16,7 @@ export default meta;
 
 type Story = StoryObj<typeof Inputs>;
 
+/**This story shows Inputs control into which the user will enter the two phrases that will be superimposd on a meme image */
 export const Primary: Story = {
 
     args: {

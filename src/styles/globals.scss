@@ -1,6 +1,8 @@
-@import "resets.scss";
+@import "resets";
+@import "global_scss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;900&family=Karla:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 
 :root {
     --color-gradient-start: #672280;
@@ -45,7 +47,26 @@
 
 
     --font-meme-font-family: 'Impact', 'Anton', sans-serif;
-    --font-meme-font-size: 1.5rem; //5vmin;
+
+    //The following magic numbers in clamp function
+    //work reasonably well as viewport is changed.
+    //Alternative would have been an SVG overlay which
+    //I might still try for fun at some point.
+    //Previous value (mobile first) was 1.5rem;
+    //with additional media queries as follows:
+    //
+    // @media screen and (min-width: $bp-s) {
+    //     --font-meme-font-size: 1.8rem; //5vmin;
+    //     }
+
+    //     @media screen and (min-width: $bp-m) {
+    //     --font-meme-font-size: 2.0rem; //5vmin;
+    //     }
+
+    //     @media screen and (min-width: $bp-l) {
+    //     --font-meme-font-size: 2.1rem; //5vmin;
+    //     }
+    --font-meme-font-size: clamp(1.5rem, 4.8vmin, 4rem);
     --font-meme-font-style: normal;
     --font-meme-font-weight: 900;
     --font-meme-line-height: 2.376rem;
@@ -58,23 +79,6 @@
 	// 			-0.07em -0.07em 0 var(--color-dark);
 
 
-    //CSS vars cannot be used in media queries,
-    //so defininc SCSS vars
-    $bp-s: 400px;
-    $bp-m: 600px;
-    $bp-l: 900px;
-
-    @media screen and (min-width: $bp-s) {
-    --font-meme-font-size: 1.8rem; //5vmin;
-    }
-
-    @media screen and (min-width: $bp-m) {
-    --font-meme-font-size: 2.0rem; //5vmin;
-    }
-
-    @media screen and (min-width: $bp-l) {
-    --font-meme-font-size: 2.1rem; //5vmin;
-    }
 
 }
 
