@@ -9,9 +9,10 @@ const meta: Meta<typeof Meme> = {
     decorators: [
         (Story) => (
             <div style={{
-                height: '100vh', display: 'flex',
-                // flexDirection: 'column',
-                // alignItems: 'center'
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+
             }}>
                 <Story />
             </div>
