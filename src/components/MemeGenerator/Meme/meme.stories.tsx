@@ -8,7 +8,11 @@ const meta: Meta<typeof Meme> = {
     component: Meme,
     decorators: [
         (Story) => (
-            <div style={{ height: '100vh', display: 'flex' }}>
+            <div style={{
+                height: '100vh', display: 'flex',
+                // flexDirection: 'column',
+                // alignItems: 'center'
+            }}>
                 <Story />
             </div>
         )

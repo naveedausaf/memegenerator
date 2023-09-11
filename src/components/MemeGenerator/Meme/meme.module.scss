@@ -1,7 +1,11 @@
 .meme {
 
     flex-grow: 1;
-    contain: size;
+    //adding contain: paint to existing value
+    //of "size" fixes the vertical scrollbars appearing
+    //when reducing (but not increasing) viewport height
+    contain: paint size;
+    position: relative;
 
 
     &__image {
@@ -15,6 +19,7 @@
 
     &__textcontainer {
         position: absolute;
+        top: 0;
         display: none;//should be "grid" when visible
         grid-template-columns: 1;
         grid-gap: 50%; //this works on `top of align-content: center`

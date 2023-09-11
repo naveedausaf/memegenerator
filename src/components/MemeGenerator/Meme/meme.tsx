@@ -31,6 +31,7 @@ interface MemeProps {
  *
  */
 const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: MemeProps) => {
+    const memeContainer = useRef<HTMLDivElement>(null);
     const memeTextContainer = useRef<HTMLDivElement>(null);
     const memeImageContainer = useRef<HTMLImageElement>(null);
 
@@ -42,19 +43,19 @@ const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: Mem
         //The layout shift was particularly
         //noticeable on first load to fix which I also gave
         //"display: none" to the text container in CSS
-        memeTextContainer.current!.style.display = "none";
+        //memeTextContainer.current!.style.display = "none";
 
         memeTextContainer.current!.style.width = memeImageContainer.current!.clientWidth + "px";
 
         memeTextContainer.current!.style.height = memeImageContainer.current!.clientHeight + "px";
 
         //debugger;
-        memeTextContainer.current!.style.top = memeImageContainer.current!.getBoundingClientRect().top + "px";
+        // memeTextContainer.current!.style.top = memeImageContainer.current!.getBoundingClientRect().top + "px";
 
-        memeTextContainer.current!.style.left = memeImageContainer.current!.getBoundingClientRect().left + "px";
+        memeTextContainer.current!.style.left = memeImageContainer.current!.getBoundingClientRect().left - memeContainer.current!.getBoundingClientRect().left + "px";
 
         //UNHIDE text container
-        memeTextContainer.current!.style.display = "grid";
+        //memeTextContainer.current!.style.display = "grid";
     }
 
     function handleMemeLoad(event: SyntheticEvent<HTMLElement, Event>): void {
@@ -67,7 +68,7 @@ const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: Mem
         //size itself to the (dynamic) size of the image
         //using CSS.
         //debugger;
-
+        memeTextContainer.current!.style.display = "grid";
         resizeTextOverlay();
 
 
@@ -98,7 +99,7 @@ const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: Mem
 
     }, []);//empty `[]` ensures the passed func only runs on mount
     return (
-        <div className={styles.meme} onLoad={handleMemeLoad}>
+        <div className={styles.meme} onLoad={handleMemeLoad} ref={memeContainer}>
             <img src={memeImageUrl} alt={memeImageAltText}
                 className={styles.meme__image}
                 ref={memeImageContainer}
