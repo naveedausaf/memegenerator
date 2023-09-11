@@ -67,7 +67,12 @@ const Meme = ({ firstPhrase, secondPhrase, memeImageUrl, memeImageAltText }: Mem
         //I then couldn't make the meme text fid overlay
         //size itself to the (dynamic) size of the image
         //using CSS.
-        //debugger;
+
+        //This line added because before
+        //at startup, text overlay appeared on left
+        //of screen somewhere momentarily, then
+        //positioned itself on the image (so there
+        //was a layout shift of the text overlay)
         memeTextContainer.current!.style.display = "grid";
         resizeTextOverlay();
 
