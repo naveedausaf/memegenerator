@@ -5,7 +5,7 @@ const meta: Meta<typeof MemeGenerator> = {
     component: MemeGenerator,
     decorators: [
         (Story) => (
-            <div style={{ height: '100vh' }}>
+            <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
                 <Story />
             </div>
         )
@@ -27,5 +27,8 @@ type Story = StoryObj<typeof MemeGenerator>;
  * * Vertical scrollbars appear momentarily, and therefore the whole layout judders right to left and back again, when viewport height is reduced, but not when it is increased.
  */
 export const Primary: Story = {
-    render: () => <MemeGenerator />,
+    render: () =>
+
+        <MemeGenerator />
+    ,
 }

@@ -15,11 +15,16 @@ const MemeGenerator = () => {
 
 
     return (
-        <div className={styles.container}>
-            <Inputs onFirstPhraseChange={setFirstPhrase} onSecondPhraseChange={setSecondPhrase} />
-            <Button onMemeChange={setMemeObject} />
-            <Meme firstPhrase={memeObject && firstPhrase} secondPhrase={memeObject && secondPhrase} memeImageUrl={memeObject?.url} memeImageAltText={memeObject?.name} />
+
+
+        <div className={styles.outercontainer}>
+            <div className={styles.container} >
+                <Inputs onFirstPhraseChange={setFirstPhrase} onSecondPhraseChange={setSecondPhrase} />
+                <Button onMemeChange={setMemeObject} />
+                <Meme firstPhrase={memeObject && firstPhrase} secondPhrase={memeObject && secondPhrase} memeImageUrl={memeObject?.url} memeImageAltText={memeObject?.name} />
+            </div >
         </div>
+
     );
 }
 
